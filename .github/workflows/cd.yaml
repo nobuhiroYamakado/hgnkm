@@ -28,7 +28,7 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           credentials_file_path: crd
-          audience:  ${{ WI_AUDIENCE }}
+          audience:  ${{ secrets.WI_AUDIENCE }}
 
 
       - name: setup JDK 11
