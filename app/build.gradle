@@ -7,6 +7,13 @@ android {
     namespace 'com.example.hgnkm'
     compileSdk 32
 
+    signingConfig {
+        storeFile file("keystore")
+        storePassword System.getenv('STORE_PASSWORD')
+        keyAlias System.getenv('KEY_ALIAS')
+        keyPassword System.getenv('KEY_PASSWORD')
+    }
+
     defaultConfig {
         applicationId "com.example.hgnkm"
         minSdk 29
@@ -21,6 +28,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfig
         }
     }
     compileOptions {
