@@ -22,7 +22,7 @@ jobs:
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.SERVICE_ACCOUNT }}
           access_token_lifetime: 900s
-          audience: ${{ WI_AUDIENCE }}
+          audience: ${{ secrets.WI_AUDIENCE }}
 
       - name: setup Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
