@@ -26,10 +26,7 @@ jobs:
       - name: setup Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
           credentials_file_path: crd
-          audience:  ${{ secrets.WI_AUDIENCE }}
-
 
       - name: setup JDK 11
         uses: actions/setup-java@v3
