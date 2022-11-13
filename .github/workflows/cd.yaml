@@ -23,7 +23,7 @@ jobs:
       - name: setup Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         project_id: ${{ secrets.GCP_PROJECT_ID }}
-        credentials_file_path: ${{ steps.auth.outputs.credentials_file_path }}
+        credentials_file_path: ${{ steps.auth.credentials_file_path }}
 
       - name: setup JDK 11
         uses: actions/setup-java@v3
