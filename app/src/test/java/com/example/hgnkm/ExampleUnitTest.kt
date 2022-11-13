@@ -1,4 +1,4 @@
-package com.example.hgnkm
+package com.ymkd.hgnkm
 
 import org.junit.Test
 

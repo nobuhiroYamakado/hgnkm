@@ -1,4 +1,4 @@
-package com.example.hgnkm
+package com.ymkd.hgnkm
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.hgnkm.databinding.FragmentFirstBinding
+import com.ymkd.hgnkm.databinding.FragmentFirstBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.

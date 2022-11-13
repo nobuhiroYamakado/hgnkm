@@ -4,18 +4,20 @@ plugins {
 }
 
 android {
-    namespace 'com.example.hgnkm'
+    namespace 'com.ymkd.hgnkm'
     compileSdk 32
 
-    signingConfig {
-        storeFile file("keystore")
-        storePassword System.getenv('STORE_PASSWORD')
-        keyAlias System.getenv('KEY_ALIAS')
-        keyPassword System.getenv('KEY_PASSWORD')
+    signingConfigs {
+        release {
+            storeFile file("keystore")
+            storePassword System.getenv('STORE_PASSWORD')
+            keyAlias System.getenv('KEY_ALIAS')
+            keyPassword System.getenv('KEY_PASSWORD')
+        }
     }
 
     defaultConfig {
-        applicationId "com.example.hgnkm"
+        applicationId "com.ymkd.hgnkm"
         minSdk 29
         targetSdk 32
         versionCode 1
@@ -28,7 +30,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfig
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
