@@ -22,8 +22,9 @@ jobs:
 
       - name: setup Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
-        credentials_file_path: ${{ steps.auth.credentials_file_path }}
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          credentials_file_path: crd
 
       - name: setup JDK 11
         uses: actions/setup-java@v3
@@ -47,7 +48,7 @@ jobs:
       - name: upload to Play Console
         uses: r0adkll/upload-google-play@78c9e796b1035c94169c101d8e46cb880194bfc3
         with:
-          serviceAccountJson: ${{ steps.auth.outputs.credentials_file_path }}
+          serviceAccountJson: ${{ steps.auth.credentials_file_path }}
           packageName: com.ymkd.hgnkm
           releaseFile: app/build/outputs/bundle/Release/app-release.aab
           track: internal
