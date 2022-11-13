@@ -1,0 +1,55 @@
+name: cd
+
+on:
+  release:
+    types:
+      - 'published'
+
+jobs:
+  cd:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: 'actions/checkout@v3'
+
+      - id : auth
+        name: setup service account via workload identity
+        uses: google-github-actions/auth@v1
+        with:
+          create_credentials_file: true
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT }}
+          access_token_lifetime: 900s
+
+      - name: setup Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        credentials_file_path: ${{ steps.auth.outputs.credentials_file_path }}
+
+      - name: setup JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: set up for Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: de-code keystore from base64 into a file
+        run: echo ${{ secrets.BASE64_KEY_STORE }} | base64 --decode > ./app/keystore
+
+      - name: make bundle with sign
+        run: ./gradlew :app:bundleRelease
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+
+      - name: upload to Play Console
+        uses: r0adkll/upload-google-play@78c9e796b1035c94169c101d8e46cb880194bfc3
+        with:
+          serviceAccountJson: ${{ steps.auth.outputs.credentials_file_path }}
+          packageName: com.ymkd.hgnkm
+          releaseFile: app/build/outputs/bundle/Release/app-release.aab
+          track: internal
+          status: draft
+          releaseName: ${{ github.ref_name }}
