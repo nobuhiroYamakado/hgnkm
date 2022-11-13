@@ -50,7 +50,8 @@ jobs:
         with:
           serviceAccountJson: ${{ steps.auth.outputs.credentials_file_path }}
           packageName: com.ymkd.hgnkm
-          releaseFile: app/build/outputs/bundle/Release/app-release.aab
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
+            aab:
           track: internal
           status: draft
           releaseName: ${{ github.ref_name }}
