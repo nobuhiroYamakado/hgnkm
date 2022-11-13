@@ -8,9 +8,11 @@ on:
 jobs:
   cd:
     runs-on: ubuntu-20.04
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     steps:
       - uses: 'actions/checkout@v3'
-
       - id : auth
         name: setup service account via workload identity
         uses: google-github-actions/auth@v1
