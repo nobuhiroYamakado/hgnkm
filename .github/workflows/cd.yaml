@@ -36,7 +36,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: de-code keystore from base64 into a file
-        run: echo ${{ secrets.BASE64_KEY_STORE }} | base64 --decode > ./app/keystore
+        run: echo ${{ secrets.BASE64_KEY_STORE }} | openssl enc -d -base64 > ./app/keystore
 
       - name: make bundle with sign
         run: ./gradlew :app:bundleRelease
