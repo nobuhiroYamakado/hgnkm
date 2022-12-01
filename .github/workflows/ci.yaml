@@ -1,0 +1,24 @@
+name: cd
+
+on:
+  release:
+    types:
+      - 'published'
+  on:
+    push:
+  workflow_dispatch:
+
+jobs:
+  cd:
+    runs-on: ubuntu-20.04
+    # permissions:
+    #   contents: 'read'
+    #   id-token: 'write'
+    steps:
+      - uses: 'actions/checkout@v3'
+
+      - name: set up for Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: lint by gradlew
+        run: ./gradlew lint
